@@ -48,8 +48,8 @@ Ayrıca Azure Blob Storage entegrasyonu ile resim yükleme desteği bulunmaktad�
 ### 1️⃣ Projeyi Klonlayın
 
 ```bash
-git clone https://github.com/KendiKullaniciAdiniz/Mini-E-Ticaret-API.git
-cd Mini-E-Ticaret-API
+git clone https://github.com/FerhatCaliskan/E-Ticaret-API.git
+cd E-Ticaret-API
 ```
 
 ### 2️⃣ appsettings.json Yapılandırması
