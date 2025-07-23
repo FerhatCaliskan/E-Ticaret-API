@@ -63,8 +63,8 @@ namespace ETicaretAPI.Persistance.Services
 			{
 				await _userManager.AddLoginAsync(user, info); //AspNetUserLogins tablosuna ekler
 
-				Token token = _tokenHandler.CreateAccessToken(accessTokenLifeTime); //token üretim
-				await _userService.UpdateRefreshToken(token.RefreshToken, user, token.Expiration, 15);
+				Token token = _tokenHandler.CreateAccessToken(accessTokenLifeTime, user); //token üretim
+				await _userService.UpdateRefreshToken(token.RefreshToken, user, token.Expiration, 5);
 				return token;
 			}
 			throw new Exception("Invalid external authentication");
@@ -121,8 +121,8 @@ namespace ETicaretAPI.Persistance.Services
 			SignInResult result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
 			if (result.Succeeded) //Authentication başarılı!
 			{
-				Token token = _tokenHandler.CreateAccessToken(accessTokenLifeTime);
-				await _userService.UpdateRefreshToken(token.RefreshToken, user, token.Expiration, 15);
+				Token token = _tokenHandler.CreateAccessToken(accessTokenLifeTime, user);
+				await _userService.UpdateRefreshToken(token.RefreshToken, user, token.Expiration, 5);
 				return token;
 			}
 			throw new AuthenticationErrorException();
@@ -132,8 +132,8 @@ namespace ETicaretAPI.Persistance.Services
 			AppUser? user = await _userManager.Users.FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
 			if (user != null && user?.ResfreshTokenEndDate > DateTime.UtcNow)
 			{
-				Token token = _tokenHandler.CreateAccessToken(15);
-				await _userService.UpdateRefreshToken(token.RefreshToken, user, token.Expiration, 15);
+				Token token = _tokenHandler.CreateAccessToken(5, user);
+				await _userService.UpdateRefreshToken(token.RefreshToken, user, token.Expiration, 5);
 				return token;
 			}
 			else
