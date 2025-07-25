@@ -85,7 +85,7 @@ namespace ETicaretAPI.API.Controllers
 			return Ok();
 		}
 
-		[HttpPut("[action]/{imageId}/{productId}")]
+		[HttpGet("[action]")]
 		[Authorize(AuthenticationSchemes = "Admin")]
 		public async Task<IActionResult> ChangeShowcaseImage([FromQuery] ChangeShowcaseImageCommandRequest changeShowcaseImageCommandRequest)
 		{
