@@ -6,11 +6,6 @@ using ETicaretAPI.Domain.Entities.Idenity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ETicaretAPI.Persistance.Services
 {
@@ -123,5 +118,15 @@ namespace ETicaretAPI.Persistance.Services
 				await _basketItemWriteRepository.SaveAsync();
 			}
 		}
+
+		public Basket? GetUserActiveBasket
+		{
+			get
+			{
+				Basket? basket = ContextUser().Result;
+				return basket;
+			}
+		}
+
 	}
 }

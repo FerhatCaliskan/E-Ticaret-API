@@ -1,4 +1,5 @@
-﻿using ETicaretAPI.Application.Abstractions.Services;
+﻿using ETicaretAPI.Application.Abstractions.Hubs;
+using ETicaretAPI.Application.Abstractions.Services;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -11,20 +12,28 @@ namespace ETicaretAPI.Application.Features.Commands.Order.CreateOrder
 	public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommandRequest, CreateOrderCommandResponse>
 	{
 		readonly IOrderService _orderService;
+		readonly IBasketService _basketService;
+		readonly IOrderHubService _orderHubService;
 
-		public CreateOrderCommandHandler(IOrderService orderService)
+		public CreateOrderCommandHandler(IOrderService orderService, IBasketService basketService, IOrderHubService orderHubService)
 		{
 			_orderService = orderService;
+			_basketService = basketService;
+			_orderHubService = orderHubService;
 		}
 
-		public Task<CreateOrderCommandResponse> Handle(CreateOrderCommandRequest request, CancellationToken cancellationToken)
+		public async Task<CreateOrderCommandResponse> Handle(CreateOrderCommandRequest request, CancellationToken cancellationToken)
 		{
-			_orderService.CreateOrderAsync(new()
+			await _orderService.CreateOrderAsync(new()
 			{
 				Address = request.Address,
 				Description = request.Description,
-
+				BasketId = _basketService.GetUserActiveBasket?.Id.ToString()
 			});
+
+			await _orderHubService.OrderAddedMessageAsync("Yeni sipariş");
+
+			return new();
 		}
 	}
 }
