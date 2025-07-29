@@ -81,6 +81,7 @@ namespace ETicaretAPI.Persistance.Services
 					{
 						BasketId = basket.Id,
 						ProductId = Guid.Parse(basketItem.ProductId),
+						Quantity = basketItem.Quantity
 					});
 				}
 				await _basketItemWriteRepository.SaveAsync();
