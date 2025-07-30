@@ -45,7 +45,7 @@ namespace ETicaretAPI.Persistance
 			services.AddScoped<IUserService, UserService>();
 			services.AddScoped<IAuthService, AuthService>();
 			services.AddScoped<IExternalAuthentication, AuthService>();
-			services.AddScoped<IInternalAtuhentication, AuthService>();
+			services.AddScoped<IInternalAuthentication, AuthService>();
 			services.AddScoped<IBasketService, BasketService>();
 			services.AddScoped<IOrderService, OrderService>();
 

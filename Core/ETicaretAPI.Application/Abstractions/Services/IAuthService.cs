@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ETicaretAPI.Application.Abstractions.Services
 {
-	public interface IAuthService : IExternalAuthentication, IInternalAtuhentication
+	public interface IAuthService : IExternalAuthentication, IInternalAuthentication
 	{
 
 	}
