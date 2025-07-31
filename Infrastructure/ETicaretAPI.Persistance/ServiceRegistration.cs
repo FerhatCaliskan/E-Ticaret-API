@@ -5,6 +5,7 @@ using ETicaretAPI.Domain.Entities.Idenity;
 using ETicaretAPI.Persistance.Contexts;
 using ETicaretAPI.Persistance.Repositories;
 using ETicaretAPI.Persistance.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,7 +23,7 @@ namespace ETicaretAPI.Persistance
 				options.Password.RequireDigit = false;
 				options.Password.RequireLowercase = false;
 				options.Password.RequireUppercase = false;
-			}).AddEntityFrameworkStores<ETicaretAPIDbContext>();
+			}).AddEntityFrameworkStores<ETicaretAPIDbContext>().AddDefaultTokenProviders();
 
 			services.AddScoped<ICustomerReadRepository, CustomerReadRepository>();
 			services.AddScoped<ICustomerWriteRepository, CustomerWriteRepository>();
