@@ -25,7 +25,7 @@ namespace ETicaretAPI.API.Controllers
 		}
 
 		[HttpGet]
-		[AuthorizeDefinition(Menu = AuthorizeDefinitonConstants.Orders, ActionType = Application.Enums.ActionType.Reading, Definition = "Get All Orders")]
+		[AuthorizeDefinition(Menu = AuthorizeDefinitonConstants.Orders, ActionType = Application.Enums.ActionType.Reading, Definition = "Tüm Siparişleri Görüntüle")]
 		public async Task<IActionResult> GetAllOrders([FromQuery] GetAllOrdersQueryRequest getAllOrdersQueryRequest)
 		{
 			GetAllOrdersQueryResponse response = await _mediator.Send(getAllOrdersQueryRequest);
@@ -33,7 +33,7 @@ namespace ETicaretAPI.API.Controllers
 		}
 
 		[HttpGet("{Id}")]
-		[AuthorizeDefinition(Menu = AuthorizeDefinitonConstants.Orders, ActionType = Application.Enums.ActionType.Reading, Definition = "Get Order By Id")]
+		[AuthorizeDefinition(Menu = AuthorizeDefinitonConstants.Orders, ActionType = Application.Enums.ActionType.Reading, Definition = "Id'ye Göre Sipariş Görüntüle")]
 		public async Task<IActionResult> GetOrderById([FromRoute] GetOrderByIdQueryRequest getOrderByIdQueryRequest)
 		{
 			GetOrderByIdQueryResponse response = await _mediator.Send(getOrderByIdQueryRequest);
@@ -41,7 +41,7 @@ namespace ETicaretAPI.API.Controllers
 		}
 
 		[HttpPost]
-		[AuthorizeDefinition(Menu = AuthorizeDefinitonConstants.Orders, ActionType = Application.Enums.ActionType.Writing, Definition = "Create Order")]
+		[AuthorizeDefinition(Menu = AuthorizeDefinitonConstants.Orders, ActionType = Application.Enums.ActionType.Writing, Definition = "Sipariş Oluştur")]
 		public async Task<IActionResult> CreateOrder(CreateOrderCommandRequest createOrderCommandRequest)
 		{
 			CreateOrderCommandResponse response = await _mediator.Send(createOrderCommandRequest);
@@ -49,7 +49,7 @@ namespace ETicaretAPI.API.Controllers
 		}
 
 		[HttpGet("complete-order/{Id}")]
-		[AuthorizeDefinition(Menu = AuthorizeDefinitonConstants.Orders, ActionType = Application.Enums.ActionType.Updating, Definition = "Complete Order")]
+		[AuthorizeDefinition(Menu = AuthorizeDefinitonConstants.Orders, ActionType = Application.Enums.ActionType.Updating, Definition = "Siparişi Tamamla")]
 		public async Task<IActionResult> CompleteOrder([FromRoute] CompleteOrderCommandRequest completeOrderCommandRequest)
 		{
 			CompleteOrderCommandResponse response = await _mediator.Send(completeOrderCommandRequest);
