@@ -1,17 +1,10 @@
 ﻿using ETicaretAPI.Application.Abstractions.Services;
 using ETicaretAPI.Application.DTOs.User;
 using ETicaretAPI.Application.Exceptions;
-using ETicaretAPI.Application.Features.Commands.AppUser.CreateUser;
 using ETicaretAPI.Application.Helpers;
 using ETicaretAPI.Domain.Entities.Idenity;
-using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.WebUtilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace ETicaretAPI.Persistance.Services
 {
@@ -69,5 +62,24 @@ namespace ETicaretAPI.Persistance.Services
 					throw new PasswordChangeFailedException();
 			}
 		}
+
+		public async Task<List<ListUser>> GetAllUsersAsync(int page, int size)
+		{
+			var users = await _userManager.Users
+					.Skip(page * size)
+					.Take(size)
+					.ToListAsync();
+
+			return users.Select(user => new ListUser
+			{
+				Id = user.Id,
+				Email = user.Email,
+				NameSurname = user.NameSurname,
+				TwoFactorEnabled = user.TwoFactorEnabled,
+				UserName = user.UserName
+
+			}).ToList();
+		}
+		public int TotalUsersCount => _userManager.Users.Count();
 	}
 }

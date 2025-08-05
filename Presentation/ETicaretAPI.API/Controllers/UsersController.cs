@@ -1,10 +1,10 @@
-﻿using ETicaretAPI.Application.Features.Commands.AppUser.CreateUser;
-using ETicaretAPI.Application.Features.Commands.AppUser.FacebookLogin;
-using ETicaretAPI.Application.Features.Commands.AppUser.GoogleLogin;
-using ETicaretAPI.Application.Features.Commands.AppUser.LoginUser;
+﻿using ETicaretAPI.Application.CustomAttributes;
+using ETicaretAPI.Application.Enums;
+using ETicaretAPI.Application.Features.Commands.AppUser.CreateUser;
 using ETicaretAPI.Application.Features.Commands.AppUser.UpdatePassword;
+using ETicaretAPI.Application.Features.Queries.AppUser;
 using MediatR;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ETicaretAPI.API.Controllers
@@ -29,6 +29,15 @@ namespace ETicaretAPI.API.Controllers
 		public async Task<IActionResult> UpdatePassword([FromBody] UpdatePasswordCommandRequest updatePasswordCommandRequest)
 		{
 			UpdatePasswordCommandResponse response = await _mediator.Send(updatePasswordCommandRequest);
+			return Ok(response);
+		}
+
+		[HttpGet]
+		[Authorize(AuthenticationSchemes = "Admin")]
+		[AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Tüm Kullanıcıları Görüntüle", Menu = "Kullanıcılar")]
+		public async Task<IActionResult> GetAllUsers([FromQuery] GetAllUsersQueryRequest getAllUsersQueryRequest)
+		{
+			GetAllUsersQueryResponse response = await _mediator.Send(getAllUsersQueryRequest);
 			return Ok(response);
 		}
 	}
