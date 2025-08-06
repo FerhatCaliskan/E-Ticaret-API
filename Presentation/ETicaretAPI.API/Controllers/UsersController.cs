@@ -38,7 +38,7 @@ namespace ETicaretAPI.API.Controllers
 
 		[HttpGet]
 		[Authorize(AuthenticationSchemes = "Admin")]
-		[AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Tüm Kullanıcıları Getir", Menu = "Users")]
+		[AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Tüm Kullanıcıları Getir", Menu = "Kullanıcılar")]
 		public async Task<IActionResult> GetAllUsers([FromQuery] GetAllUsersQueryRequest getAllUsersQueryRequest)
 		{
 			GetAllUsersQueryResponse response = await _mediator.Send(getAllUsersQueryRequest);
@@ -47,7 +47,7 @@ namespace ETicaretAPI.API.Controllers
 
 		[HttpGet("get-roles-to-user/{UserId}")]
 		[Authorize(AuthenticationSchemes = "Admin")]
-		[AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Tüm Kullanıcı Rollerini Getir", Menu = "Users")]
+		[AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Tüm Kullanıcı Rollerini Getir", Menu = "Kullanıcılar")]
 		public async Task<IActionResult> GetRolesToUser([FromRoute] GetRolesToUserQueryRequest getRolesToUserQueryRequest)
 		{
 			GetRolesToUserQueryResponse response = await _mediator.Send(getRolesToUserQueryRequest);
@@ -56,7 +56,7 @@ namespace ETicaretAPI.API.Controllers
 
 		[HttpPost("assign-role-to-user")]
 		[Authorize(AuthenticationSchemes = "Admin")]
-		[AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Kullanıcıya Rol Ata", Menu = "Users")]
+		[AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Kullanıcıya Rol Ata", Menu = "Kullanıcılar")]
 		public async Task<IActionResult> AssignRoleToUser(AssignRoleToUserCommandRequest assignRoleToUserCommandRequest)
 		{
 			AssignRoleToUserCommandResponse response = await _mediator.Send(assignRoleToUserCommandRequest);

@@ -1,5 +1,6 @@
 ﻿using ETicaretAPI.Application.DTOs.User;
 using ETicaretAPI.Domain.Entities.Idenity;
+using Microsoft.AspNetCore.DataProtection.XmlEncryption;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,8 @@ namespace ETicaretAPI.Application.Abstractions.Services
 		Task UpdatePasswordAsync(string userId, string resetToken, string newPassword);
 		Task<List<ListUser>> GetAllUsersAsync(int page, int size);
 		int TotalUsersCount { get; }
-		Task  AssignRoleToUserAsync(string userId, string[] roles);
-		Task<string[]> GetRolesToUserAsync(string userId);
+		Task AssignRoleToUserAsync(string userId, string[] roles);
+		Task<string[]> GetRolesToUserAsync(string userIdOrName);
+		Task<bool> HasRolePermissionToEndpointAsync(string name, string code);
 	}
 }
