@@ -10,7 +10,7 @@ namespace ETicaretAPI.Persistance.Services
 {
 	public class UserService : IUserService
 	{
-		readonly UserManager<Domain.Entities.Idenity.AppUser> _userManager;
+		readonly UserManager<AppUser> _userManager;
 
 		public UserService(UserManager<AppUser> userManager)
 		{
@@ -80,6 +80,29 @@ namespace ETicaretAPI.Persistance.Services
 
 			}).ToList();
 		}
+
 		public int TotalUsersCount => _userManager.Users.Count();
+
+		public async Task AssignRoleToUserAsync(string userId, string[] roles)
+		{
+			AppUser user = await _userManager.FindByIdAsync(userId);
+			if (user != null)
+			{
+				var userRoles = await _userManager.GetRolesAsync(user);
+				await _userManager.RemoveFromRolesAsync(user, userRoles);
+
+				await _userManager.AddToRolesAsync(user, roles);
+			}
+		}
+		public async Task<string[]> GetRolesToUserAsync(string userId)
+		{
+			AppUser user = await _userManager.FindByIdAsync(userId);
+			if (user != null)
+			{
+				var userRoles = await _userManager.GetRolesAsync(user);
+				return userRoles.ToArray();
+			}
+			return new string[] { };
+		}
 	}
 }
